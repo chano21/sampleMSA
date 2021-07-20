@@ -5,24 +5,59 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
+		<!-- <version>2.3.4.RELEASE</version>
+		 -->
+		
 		<version>2.4.5</version>
+		
+		
+		
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.eureka</groupId>
+	<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot -->
+
 	<artifactId>Eureka</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Eureka</name>
-	<description>VacationService in service discovery</description>
+	<description>eureka</description>
 	<properties>
-		<java.version>11</java.version>
+		<java.version>8</java.version>
 		<spring-cloud.version>2020.0.2</spring-cloud.version>
 	</properties>
+	
+	
+	
+	
+	
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 		</dependency>
+		
+<!-- dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-netflix-hystrix</artifactId>
+ </dependency>
+  -->
+<!-- https://mvnrepository.com/artifact/org.springframework.cloud/spring-cloud-starter-bootstrap -->
+<dependency>
+    <groupId>org.springframework.cloud</groupId>
+    <artifactId>spring-cloud-starter-bootstrap</artifactId>
+</dependency>
 
+
+ <dependency>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-starter-config</artifactId>
+    </dependency>
+    
+<dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-devtools</artifactId>

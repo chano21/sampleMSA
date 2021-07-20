@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.auth.common.VacationStatus.VacationUserType;
+import com.auth.common.MemberStatus.MemberUserType;
 import com.auth.domain.Member;
 import com.auth.repo.MemberRepository;
 import com.auth.security.AuthInformation;

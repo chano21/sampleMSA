@@ -9,7 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import com.auth.common.VacationStatus.VacationUserType;
+import com.auth.common.MemberStatus.MemberUserType;
 
 import lombok.Data;
 
@@ -30,7 +30,7 @@ public class Member {
     
     @Enumerated(EnumType.STRING)
     @Column(name = "userType", nullable = false)
-    private VacationUserType userType; 
+    private MemberUserType userType; 
     
     
 }
