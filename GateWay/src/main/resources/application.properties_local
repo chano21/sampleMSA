@@ -1,0 +1,21 @@
+spring.application.name=api-gateway
+server.port=9100
+eureka.client.serviceUrl.defaultZone=http://localhost:9600/eureka/
+# default url
+#zuul.routes.auth.path==/auth/**
+#zuul.routes.auth.strip-prefix=true
+
+zuul.routes.member.path=/member/**
+zuul.routes.member.strip-prefix=true
+
+zuul.routes.vacation.path=/vacation/**
+zuul.routes.vacation.strip-prefix=true
+
+
+security.oauth2.client.client-id=vacation1234
+security.oauth2.client.client-secret=vacationpassword
+security.oauth2.resource.jwt.key-value=sadfadsfads
+
+zuul.sensitiveHeaders= Cookie,Set-Cookie  
+
+logging.level.root=warn
