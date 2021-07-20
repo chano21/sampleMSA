@@ -1,5 +1,1 @@
-# msaSample
-# msaSample
-# sampleMSA
-# sampleMSA
-# sampleMSA
+#spring-cloud-config + api-gateway with redis-oauth2.0 sample
