@@ -1,7 +1,4 @@
-/**
- * 
- */
-package com.gateway.config;
+package com.first.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -21,10 +18,10 @@ class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
     	  http.authorizeRequests()
-          .antMatchers(HttpMethod.GET,"/first").authenticated()
+          .antMatchers(HttpMethod.GET,"/member").authenticated()
     	 // http.authorizeRequests()
-          .antMatchers("/second").authenticated()
-          .antMatchers(HttpMethod.POST,"/first").permitAll();
+          .antMatchers("/vacation").authenticated()
+          .antMatchers(HttpMethod.POST,"/member").permitAll();
  //    	http
 //        .httpBasic()
 //            .and()

@@ -90,9 +90,9 @@ public class AuthConfiguration extends AuthorizationServerConfigurerAdapter {
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
         JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
+       
         System.out.println("나아라 : " + resourceServerProperties.getClientId());
         System.out.println("나아라 : " + resourceServerProperties.getClientSecret());
-        
         accessTokenConverter.setSigningKey(resourceServerProperties.getJwt().getKeyValue());
 
         return accessTokenConverter;
