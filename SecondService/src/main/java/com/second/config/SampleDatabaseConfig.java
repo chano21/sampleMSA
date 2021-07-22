@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.auth.config;
+package com.second.config;
 
 import java.util.HashMap;
 
@@ -26,7 +26,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(entityManagerFactoryRef = "sampleEntityManager", transactionManagerRef = "sampleTransactionManager", basePackages = "com.auth.repo")
+@EnableJpaRepositories(entityManagerFactoryRef = "sampleEntityManager", transactionManagerRef = "sampleTransactionManager", basePackages = "com.second.repo")
 public class SampleDatabaseConfig {
 	
 	@Value("${spring.sample.datasource.url}")
@@ -56,7 +56,6 @@ public class SampleDatabaseConfig {
         dataSource.setUrl(sampleDataBaseUrl);
         dataSource.setUsername(sampleDatabaseUser);
         dataSource.setPassword(sampleDatabasePassword);
-        System.out.println("테스트 : " + sampleDatabaseDriver);
         return dataSource;
     }
 
@@ -66,7 +65,7 @@ public class SampleDatabaseConfig {
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         HashMap<String, Object> properties = new HashMap<>();
         localContainerEntityManagerFactoryBean.setDataSource(sampleDataSource());
-        localContainerEntityManagerFactoryBean.setPackagesToScan(new String[] { "com.auth.domain" });
+        localContainerEntityManagerFactoryBean.setPackagesToScan(new String[] { "com.second.domain" });
         localContainerEntityManagerFactoryBean.setJpaVendorAdapter(vendorAdapter);       
         properties.put("hibernate.hbm2ddl.auto", hbm2ddl);
         properties.put("hibernate.dialect", dialect);

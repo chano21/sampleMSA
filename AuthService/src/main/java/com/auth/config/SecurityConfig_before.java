@@ -27,7 +27,7 @@ import com.auth.service.AuthService;
 
 //@Configuration
 //@EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter  {    
+public class SecurityConfig_before extends WebSecurityConfigurerAdapter  {    
 
     @Autowired
     private AuthService AuthService;
