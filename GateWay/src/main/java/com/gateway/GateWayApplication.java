@@ -9,7 +9,7 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 @EnableZuulProxy
 @EnableDiscoveryClient
 @SpringBootApplication
-@EnableEurekaClient
+//@EnableEurekaClient
 public class GateWayApplication {
 
 	public static void main(String[] args) {

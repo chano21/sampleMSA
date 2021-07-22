@@ -4,7 +4,8 @@ eureka:
             defaultZone: http://localhost:9600/eureka/
 logging:
     level:
-        root: warn
+        root: debug
+server:  port: 8500
 security:
     oauth2:
         client:
@@ -12,7 +13,7 @@ security:
             client-secret: samplepassword
         resource:
             jwt:
-                key-value: sadfadsfads
+                key-value: samplejwt
 spring:
     application:
         name: gateway
@@ -20,6 +21,7 @@ zuul:
     routes:
         first:
             path: /first/**
+            url: http://localhost:9800
             strip-prefix: true
         second:
             path: /second/**
