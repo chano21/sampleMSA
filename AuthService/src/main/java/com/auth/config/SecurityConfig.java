@@ -5,7 +5,6 @@ package com.auth.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -14,7 +13,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.auth.service.AuthService;
@@ -26,13 +24,14 @@ import com.auth.service.AuthService;
  */
 
 //@Configuration
-//@EnableWebSecurity
+@EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter  {    
 
     @Autowired
     private AuthService AuthService;
 
-
+    
+    
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
@@ -61,6 +60,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
+    
+//    @Bean
+//    public static BCryptPasswordEncoder passwordEncoder2() {
+//    return BCryptPasswordEncoder;
+//    }
+//    
     @Bean
     public static PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
@@ -68,6 +73,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
+    	System.out.println("시큐리티");
         DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
         authenticationProvider.setUserDetailsService(AuthService);
         authenticationProvider.setPasswordEncoder(passwordEncoder());

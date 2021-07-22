@@ -18,11 +18,25 @@ class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     @Override
     public void configure(HttpSecurity http) throws Exception {
     	  http.authorizeRequests()
-          .antMatchers(HttpMethod.GET,"/first").authenticated()
-    	 // http.authorizeRequests()
-          .antMatchers("/second").authenticated()
-          .antMatchers(HttpMethod.POST,"/first").permitAll();
- //    	http
+          .antMatchers(HttpMethod.GET,"/first/members").hasAnyRole("USER").and()//.authenticated()
+    	  .authorizeRequests().antMatchers("/second").authenticated().anyRequest().authenticated();
+         // .antMatchers(HttpMethod.POST,"/first").permitAll();
+
+    	//    	http
+//        .requestMatchers()
+//            .antMatchers("/first/**")
+//            .and()
+//        .authorizeRequests()
+//            .antMatchers("/first/resource").authenticated()
+//            .antMatchers("/first/members").access( "#oauth2.hasScope('read')");
+        
+//  	  http.authorizeRequests()
+//      .antMatchers(HttpMethod.GET,"/first/members").access("#oauth2.hasScope('read')").and()//.authenticated()
+//	  .authorizeRequests().antMatchers("/second").authenticated().anyRequest().authenticated();
+     // .antMatchers(HttpMethod.POST,"/first").permitAll();
+
+    	  
+    	  //    	http
 //        .httpBasic()
 //            .and()
 //        .authorizeRequests()

@@ -17,7 +17,7 @@ public class MemberStatus {
 		AVAILABLE, NOT
 	}
 	public static enum MemberUserType {
-		USER, ADMIN
+		USER, ADMIN,MASTER
 	}
 	
 }

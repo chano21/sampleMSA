@@ -13,11 +13,15 @@ import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.exceptions.OAuth2Exception;
+import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.client.JdbcClientDetailsService;
 import org.springframework.security.oauth2.provider.error.DefaultWebResponseExceptionTranslator;
 import org.springframework.security.oauth2.provider.error.WebResponseExceptionTranslator;
@@ -40,7 +44,12 @@ public class AuthConfiguration extends AuthorizationServerConfigurerAdapter {
 	@Autowired
 	AuthService authService;
 	
+	@Autowired
+	AuthenticationManager authManager;
 
+	@Autowired
+    private ClientDetailsService clientDetailsService;
+	
 	 @Autowired
 	 private ResourceServerProperties resourceServerProperties;
 	 
@@ -61,16 +70,17 @@ public class AuthConfiguration extends AuthorizationServerConfigurerAdapter {
 	@Value("${spring.redis.port}")
 	private int redisPort;
 	
+	@Autowired
+	private PasswordEncoder encoder;
 	
-	
-	@Bean
-	public TokenStore tokenStore() {
-	return new RedisTokenStore(redisConnectionFactory());
-	}
+//	@Bean
+//	public TokenStore tokenStore() {
+//	return new RedisTokenStore(redisConnectionFactory());
+//	}
 	  @Bean
 	    public RedisConnectionFactory redisConnectionFactory() {
 	        RedisStandaloneConfiguration redisStandaloneConfiguration = new RedisStandaloneConfiguration();
-	     
+	        System.out.println("레디스실행");
 	        redisStandaloneConfiguration.setPassword(redisPassword);
 	        redisStandaloneConfiguration.setPort(redisPort);
 	        redisStandaloneConfiguration.setHostName(redisHost);
@@ -99,12 +109,19 @@ public class AuthConfiguration extends AuthorizationServerConfigurerAdapter {
     public void configure(AuthorizationServerEndpointsConfigurer endpoints)
     throws Exception {
         super.configure(endpoints);
-        endpoints.accessTokenConverter(jwtAccessTokenConverter());
-        endpoints.tokenStore(tokenStore());
+        endpoints.accessTokenConverter(jwtAccessTokenConverter())
+        .authenticationManager(authManager)
+        .exceptionTranslator(loggingExceptionTranslator())
+        .userDetailsService(authService);
+       // endpoints.tokenStore(tokenStore());
+        
+        System.out.println("토근발급되냐");
+     //   
         endpoints.exceptionTranslator(loggingExceptionTranslator());
     }
     @Bean
     public JwtAccessTokenConverter jwtAccessTokenConverter() {
+    	System.out.println("제더브");
         JwtAccessTokenConverter accessTokenConverter = new JwtAccessTokenConverter();
         accessTokenConverter.setSigningKey(resourceServerProperties.getJwt().getKeyValue());
         return accessTokenConverter;
@@ -112,11 +129,20 @@ public class AuthConfiguration extends AuthorizationServerConfigurerAdapter {
     @Bean
     @Primary
     public JdbcClientDetailsService JdbcClientDetailsService(DataSource dataSource) {
+    	
     	return new JdbcClientDetailsService(dataSource);
     }
 	@Override
-	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
+	public void configure(AuthorizationServerSecurityConfigurer endpoints) throws Exception {
+//		security.
+//		security.allowFormAuthenticationForClients();
+		 System.out.println("레디스실행2");
+		endpoints.passwordEncoder(encoder);
 		
-		security.allowFormAuthenticationForClients();
 	}
+	
+	   @Override
+	    public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+	        clients.withClientDetails(clientDetailsService);
+	    }
 }

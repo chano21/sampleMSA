@@ -24,7 +24,8 @@ import com.auth.security.AuthInformation;
  * @Date : 2021. 5. 13.
  * @Description :
  */
-@Service
+//@Service()
+@Service ("UserInformationService")
 public class AuthService implements UserDetailsService {
 
 	@Autowired
